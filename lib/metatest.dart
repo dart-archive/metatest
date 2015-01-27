@@ -214,7 +214,6 @@ String _summarizeTests(Map results) {
 
   buffer.writeln();
 
-  var success = false;
   if (results['passed'] == 0 && results['failed'] == 0 &&
       results['errors'] == 0 && results['uncaughtError'] == null) {
     buffer.write('No tests found.');
@@ -222,7 +221,6 @@ String _summarizeTests(Map results) {
   } else if (results['failed'] == 0 && results['errors'] == 0 &&
       results['uncaughtError'] == null) {
     buffer.write('All ${results['passed']} tests passed.');
-    success = true;
   } else {
     if (results['uncaughtError'] != null) {
       buffer.write('Top-level uncaught error: ${results['uncaughtError']}');
