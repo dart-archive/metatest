@@ -14,6 +14,7 @@ import 'dart:isolate';
 
 // TODO(nweiz): Stop importing from src when dart-lang/test#48 is fixed.
 import 'package:test/src/backend/declarer.dart';
+import 'package:test/src/backend/live_test.dart';
 import 'package:test/src/backend/state.dart';
 import 'package:test/src/backend/suite.dart';
 import 'package:test/src/runner/engine.dart';
@@ -66,7 +67,7 @@ void _setUpTest(String description, void body(),
     var declarer = new Declarer();
     runZoned(body, zoneValues: {#test.declarer: declarer});
 
-    var engine = new Engine([new Suite(declarer.tests)]);
+    var engine = new Engine.withSuites([new Suite(declarer.tests)]);
     for (var test in engine.liveTests) {
       test.onPrint.listen(print);
     }

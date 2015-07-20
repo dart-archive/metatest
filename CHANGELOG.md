@@ -1,3 +1,7 @@
+# 0.2.0+1
+
+* Compatibility with the latest `test`.
+
 # 0.2.0
 
 * Full compatibility with `test` `0.12.0`.
