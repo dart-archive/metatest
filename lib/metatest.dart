@@ -10,7 +10,6 @@
 library metatest;
 
 import 'dart:async';
-import 'dart:isolate';
 
 // TODO(nweiz): Stop importing from src when dart-lang/test#48 is fixed.
 import 'package:test/src/backend/declarer.dart';
@@ -25,7 +24,8 @@ import 'package:test/test.dart';
 /// [body] corresponds to the `main` method of a test file. By default, this
 /// expects that all tests defined in [body] pass, but if [passing] is passed,
 /// only tests listed there are expected to pass.
-void expectTestsPass(String description, void body(), {List<String> passing}) {
+void expectTestsPass(String description, void body(), {List<String> passing,
+    String testOn, Timeout timeout, skip, Map<String, dynamic> onPlatform}) {
   _setUpTest(description, body, (liveTests) {
     if (passing == null) {
       if (liveTests.any(
@@ -49,20 +49,23 @@ void expectTestsPass(String description, void body(), {List<String> passing}) {
           '${stringify(didPass)} passed.\n'
           '${_summarizeTests(liveTests)}');
     }
-  });
+  }, testOn: testOn, timeout: timeout, skip: skip, onPlatform: onPlatform);
 }
 
 /// Asserts that all tests defined by [body] fail.
 ///
 /// [body] corresponds to the `main` method of a test file.
-void expectTestsFail(String description, body()) {
-  expectTestsPass(description, body, passing: []);
+void expectTestsFail(String description, body(), {String testOn,
+    Timeout timeout, skip, Map<String, dynamic> onPlatform}) {
+  expectTestsPass(description, body, passing: [], testOn: testOn,
+      timeout: timeout, skip: skip, onPlatform: onPlatform);
 }
 
 /// Sets up a test with the given [description] and [body]. After the test runs,
 /// calls [validate] with the result map.
 void _setUpTest(String description, void body(),
-    void validate(List<LiveTest> liveTests)) {
+    void validate(List<LiveTest> liveTests), {String testOn, Timeout timeout,
+    skip, Map<String, dynamic> onPlatform}) {
   test(description, () async {
     var declarer = new Declarer();
     runZoned(body, zoneValues: {#test.declarer: declarer});
@@ -74,7 +77,7 @@ void _setUpTest(String description, void body(),
     await engine.run();
 
     validate(engine.liveTests);
-  });
+  }, testOn: testOn, timeout: timeout, skip: skip, onPlatform: onPlatform);
 }
 
 /// Returns a string description of the test run descibed by [liveTests].
