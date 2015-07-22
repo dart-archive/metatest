@@ -1,5 +1,5 @@
 name: metatest
-version: 0.2.0+1
+version: 0.2.1
 author: Dart Team <misc@dartlang.org>
 description: A package for testing Dart test frameworks.
 homepage: https://github.com/dart-lang/metatest
