@@ -72,7 +72,7 @@ void _setUpTest(String description, void body(),
     runZoned(body, zoneValues: {#test.declarer: declarer});
 
     var engine = new Engine.withSuites([
-      new RunnerSuite(new VMEnvironment(), declarer.tests)
+      new RunnerSuite(new VMEnvironment(), declarer.build())
     ]);
     for (var test in engine.liveTests) {
       test.onPrint.listen(print);

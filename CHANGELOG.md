@@ -1,3 +1,7 @@
+# 0.2.1+1
+
+* Require `test` version `0.12.5`.
+
 # 0.2.1
 
 * Support passing named arguments through to the underlying call to `test()`.
