@@ -1,3 +1,7 @@
+# 0.2.1+2
+
+* Compatibility with the latest `test`.
+
 # 0.2.1+1
 
 * Require `test` version `0.12.5`.

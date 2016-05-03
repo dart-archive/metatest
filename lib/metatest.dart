@@ -17,7 +17,7 @@ import 'package:test/src/backend/live_test.dart';
 import 'package:test/src/backend/state.dart';
 import 'package:test/src/runner/engine.dart';
 import 'package:test/src/runner/runner_suite.dart';
-import 'package:test/src/runner/vm/environment.dart';
+import 'package:test/src/runner/plugin/environment.dart';
 import 'package:test/test.dart';
 
 /// Declares a test with the given [description] and [body].
@@ -72,7 +72,7 @@ void _setUpTest(String description, void body(),
     runZoned(body, zoneValues: {#test.declarer: declarer});
 
     var engine = new Engine.withSuites([
-      new RunnerSuite(new VMEnvironment(), declarer.build())
+      new RunnerSuite(new PluginEnvironment(), declarer.build())
     ]);
     for (var test in engine.liveTests) {
       test.onPrint.listen(print);
