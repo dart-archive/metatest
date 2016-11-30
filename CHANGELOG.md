@@ -1,3 +1,7 @@
+# 0.2.2+3
+
+* Compatibility with the latest `test`.
+
 # 0.2.2+2
 
 * Compatibility with the latest `test`.
