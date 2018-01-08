@@ -77,7 +77,7 @@ void _setUpTest(String description, void body(),
           new PluginEnvironment(), SuiteConfiguration.empty, declarer.build())
     ]);
     for (var test in engine.liveTests) {
-      test.onPrint.listen(print);
+      test.onMessage.listen((message) => print(message.text));
     }
     await engine.run();
 
